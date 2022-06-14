@@ -117,6 +117,7 @@ create policy groups_update_group_owner
   on groups
   for update
   using (auth.uid() = owner);
+    with check(true);
 
 create policy groups_delete_group_owner
   on groups
