@@ -16,8 +16,8 @@ import useGraphQLClient from '../hooks/GraphQLClient';
 import useIsMobile from '../hooks/Mobile';
 import { useUser } from '../hooks/User';
 import AddGroupModal from './AddGroupModal';
+import ChangeGroupModal from './ChangeGroupModal';
 import ChangeMembersModal from './ChangeMembersModal';
-import EditGroupModal from './EditGroupModal';
 import Loading from './Loading';
 import RemoveGroupModal from './RemoveGroupModal';
 
@@ -216,7 +216,7 @@ const GroupsPage = () => {
         close={clearState}
         groupId={state.groupId}
       />
-      <EditGroupModal
+      <ChangeGroupModal
         opened={state.editGroupOpened}
         close={clearState}
         groupId={state.groupId}
