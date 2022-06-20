@@ -44,7 +44,7 @@ const RemoveGroupForm = ({ groupId, setLoading, close }: FromProps) => {
     },
   });
 
-  const [state, setState] = useSetState({ message: '' });
+  const [state] = useSetState({ message: '' });
 
   const removeGroupMutation = useRemoveGroupMutation(graphQLClient);
   const queryClient = useQueryClient();
@@ -54,7 +54,11 @@ const RemoveGroupForm = ({ groupId, setLoading, close }: FromProps) => {
       setLoading(true);
 
       await removeGroupMutation.mutateAsync(
-        { groupId, owner: user.id },
+        {
+          groupId,
+          owner: user.id,
+          atMost: 0,
+        },
         {
           onSuccess: async () => {
             showNotification({ message: 'Removed a group.' });

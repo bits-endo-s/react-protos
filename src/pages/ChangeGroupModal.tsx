@@ -163,7 +163,8 @@ const ChangeGroupForm = ({ groupId, setLoading, close }: FormProps) => {
       <Text color="dimmed" mt="md" size="sm">
         Members
       </Text>
-      <Group>{members}</Group>      <Group position="right" mt="md">
+      <Group>{members}</Group>{' '}
+      <Group position="right" mt="md">
         <Button type="submit" size="sm">
           Save
         </Button>

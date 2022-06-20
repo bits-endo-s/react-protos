@@ -201,9 +201,7 @@ const GroupsPage = () => {
             openChangeMembers={(groupId) =>
               setState({ changeMembersOpened: true, groupId })
             }
-            openEdit={(groupId) =>
-              setState({ editGroupOpened: true, groupId })
-            }
+            openEdit={(groupId) => setState({ editGroupOpened: true, groupId })}
             openRemove={(groupId) =>
               setState({ removeGroupOpened: true, groupId })
             }

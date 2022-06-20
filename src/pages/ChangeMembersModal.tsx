@@ -61,7 +61,7 @@ const ChangeMembersForm = ({ groupId, setLoading, close }: FromProps) => {
     </Badge>
   );
 
-  const [state, setState] = useSetState({ message: '' });
+  const [state] = useSetState({ message: '' });
 
   const form = useForm({
     initialValues: { members: formList(initialMembers) },
