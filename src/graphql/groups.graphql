@@ -79,3 +79,13 @@ mutation changeMembersToOwnerOnly(
     affectedCount
   }
 }
+
+mutation changeGroup($groupId: Int!, $input: groupsUpdateInput!) {
+  updategroupsCollection(
+    set: $input
+    filter: { id: { eq: $groupId } }
+    atMost: 1
+  ) {
+    affectedCount
+  }
+}

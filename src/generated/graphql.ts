@@ -317,7 +317,6 @@ export type StringFilter = {
   eq?: InputMaybe<Scalars['String']>;
   gt?: InputMaybe<Scalars['String']>;
   gte?: InputMaybe<Scalars['String']>;
-  like?: InputMaybe<Scalars['String']>;
   lt?: InputMaybe<Scalars['String']>;
   lte?: InputMaybe<Scalars['String']>;
   neq?: InputMaybe<Scalars['String']>;
@@ -479,7 +478,7 @@ export type Groups = {
   id: Scalars['Int'];
   membersCollection?: Maybe<MembersConnection>;
   name: Scalars['String'];
-  owner?: Maybe<Scalars['UUID']>;
+  owner: Scalars['UUID'];
   profiles?: Maybe<Profiles>;
 };
 
@@ -769,6 +768,15 @@ export type ChangeMembersToOwnerOnlyMutation = {
   deleteFrommembersCollection: { affectedCount: number };
 };
 
+export type ChangeGroupMutationVariables = Exact<{
+  groupId: Scalars['Int'];
+  input: GroupsUpdateInput;
+}>;
+
+export type ChangeGroupMutation = {
+  updategroupsCollection: { affectedCount: number };
+};
+
 export type FindProfilesQueryVariables = Exact<{
   first: Scalars['Int'];
   likeName: Scalars['String'];
@@ -978,9 +986,42 @@ export const useChangeMembersToOwnerOnlyMutation = <
       >(client, ChangeMembersToOwnerOnlyDocument, variables, headers)(),
     options
   );
+export const ChangeGroupDocument = `
+    mutation changeGroup($groupId: Int!, $input: groupsUpdateInput!) {
+  updategroupsCollection(set: $input, filter: {id: {eq: $groupId}}, atMost: 1) {
+    affectedCount
+  }
+}
+    `;
+export const useChangeGroupMutation = <TError = unknown, TContext = unknown>(
+  client: GraphQLClient,
+  options?: UseMutationOptions<
+    ChangeGroupMutation,
+    TError,
+    ChangeGroupMutationVariables,
+    TContext
+  >,
+  headers?: RequestInit['headers']
+) =>
+  useMutation<
+    ChangeGroupMutation,
+    TError,
+    ChangeGroupMutationVariables,
+    TContext
+  >(
+    ['changeGroup'],
+    (variables?: ChangeGroupMutationVariables) =>
+      fetcher<ChangeGroupMutation, ChangeGroupMutationVariables>(
+        client,
+        ChangeGroupDocument,
+        variables,
+        headers
+      )(),
+    options
+  );
 export const FindProfilesDocument = `
     query findProfiles($first: Int!, $likeName: String!) {
-  profilesCollection(first: $first, filter: {nickname: {like: $likeName}}) {
+  profilesCollection(first: $first, filter: {nickname: {eq: $likeName}}) {
     edges {
       node {
         id
